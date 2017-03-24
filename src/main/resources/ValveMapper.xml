@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qr.mvc.dao.ValveMapper">
+
+    <select id="findAllValve" resultType="Valve">
+      select * from kikisystem where delFlg="0"
+    </select>
+
+    <select id="findByLocationName" parameterType="String" resultType="Valve">
+        select * from kikisystem
+        where locationName=#{locationName} and  delFlg="0"
+        ORDER BY updDate DESC
+    </select>
+
+    <select id="findValveByKikiSysId" parameterType="int" resultType="Valve">
+      select * from kikisystem where kikiSysId=#{kikiSysId}
+    </select>
+
+</mapper>

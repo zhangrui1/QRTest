@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qr.mvc.dao.KoujirelationMapper">
+
+    <select id="findAllKoujirelationByKoujiid" parameterType="String" resultType="Koujirelation">
+        select *
+        from koujirelation
+        where koujiid=#{koujiid}
+    </select>
+
+
+    <select id="findKikisysListByKoujiid" parameterType="String" resultType="Valve">
+        select distinct koujirelation.kikisysid,kikisystem.*
+        from koujirelation
+        Left join kikisystem
+        ON koujirelation.kikisysid=kikisystem.kikiSysId
+        where koujiid=#{koujiid}
+    </select>
+
+</mapper>

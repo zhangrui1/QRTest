@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qr.mvc.dao.KoujiMapper">
+
+    <select id="findKoujiById" parameterType="String" resultType="Kouji">
+        select * from kouji where id=#{id} and delFlgkouji="0"
+    </select>
+
+    <select id="findKikisysByKoujiId" parameterType="String" resultType="Valve">
+        SELECT DISTINCT koujirelation.kikisysid, kikisystem.*
+        FROM kikisystem, koujirelation
+        WHERE koujirelation.koujiid=#{koujiid} and
+        koujirelation.kikisysid=kikisystem.kikisysid
+        and delFlg="0"
+    </select>
+
+
+    <select id="findKoujiByLocation" parameterType="String" resultType="Kouji">
+        select * from kouji
+        where location = #{location} and delFlgkouji="0"
+        ORDER BY  bgnYmd DESC;
+    </select>
+
+    <select id="findKoujiByLocationAndKjNo" parameterType="Kouji" resultType="Kouji">
+        select * from kouji where location = #{location} and kjNo = #{kjNo} and delFlgkouji="0"
+    </select>
+</mapper>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qr.mvc.dao.ReportimageKikiSystemMapper">
+    <insert id="addReportimageKikisystem" parameterType="java.util.List">
+        insert into reportimagekikisystem(koujiId, imagename, kikiSysId)
+        values
+        <foreach collection="list" item="i" index="index">
+            (
+            #{i.koujiId},
+            #{i.imagename},
+            #{i.kikiSysId}
+            )
+        </foreach>
+    </insert>
+
+    <insert id="insertReportimageKikisystem" parameterType="ReportimageKikiSystem">
+        insert into reportimagekikisystem (koujiId, imagename, kikiSysId,kikiSysPage)
+        values
+        (
+        #{koujiId},
+        #{imagename},
+        #{kikiSysId},
+        #{kikiSysPage}
+        )
+    </insert>
+
+    <select id="getListByReportimageKikiSystem" parameterType="ReportimageKikiSystem" resultType="ReportimageKikiSystem">
+        select * from reportimagekikisystem where koujiId=#{koujiId} and imagename=#{imagename}
+    </select>
+
+    <select id="getKikisysIDByReportimageKikiSystemID" parameterType="ReportimageKikiSystem" resultType="Integer">
+        select kikiSysId from reportimagekikisystem where koujiId=#{koujiId} and imagename=#{imagename}
+    </select>
+
+    <select id="getKikisysIDListByReportimageKikiSystemID" parameterType="ReportimageKikiSystem" resultType="ReportimageKikiSystem">
+        select * from reportimagekikisystem where kikiSysId=#{kikiSysId} order by kikiSysPage
+    </select>
+
+    <delete id="deleteByReportimageKikiSystem" parameterType="ReportimageKikiSystem">
+        delete from reportimagekikisystem where koujiId=#{koujiId} and imagename=#{imagename}
+    </delete>
+
+    <select id="getListByKoujiId" parameterType="int" resultType="ReportimageKikiSystem">
+        select * from reportimagekikisystem where koujiId=#{koujiId}
+    </select>
+
+    <delete id="deleteByKoujiIdAndKikisysId" parameterType="ReportimageKikiSystem">
+        delete from reportimagekikisystem where koujiId=#{koujiId} and kikiSysId=#{kikiSysId}
+    </delete>
+
+    <delete id="deleteByImagenameAndKikisysId" parameterType="ReportimageKikiSystem">
+        delete from reportimagekikisystem where imagename=#{imagename} and kikiSysId=#{kikiSysId}
+    </delete>
+
+    <update id="updatePageByImagename" parameterType="ReportimageKikiSystem">
+        UPDATE reportimagekikisystem SET kikiSysPage=#{kikiSysPage} WHERE id=#{id}
+    </update>
+</mapper>

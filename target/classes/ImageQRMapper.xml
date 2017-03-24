@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qr.mvc.dao.ImageQRMapper">
+    
+    <select id="findIdByObject" parameterType="string" resultType="int">
+        SELECT id FROM imageQR WHERE imagename=#{object}
+    </select>
+
+    <select id="findImageByImageId" parameterType="int" resultType="Image">
+        SELECT * FROM imageQR WHERE id=#{imageId}
+    </select>
+
+    <update id="updateSyuByImagenameForQR" parameterType="Image">
+        UPDATE imageQR SET imagesyu=#{imagesyu},updDate=#{updDate} WHERE id=#{id}
+    </update>
+
+    <update id="updatePageByImagename" parameterType="Image">
+        UPDATE imageQR SET page=#{page},updDate=#{updDate} WHERE id=#{id}
+    </update>
+
+    <delete id="deleteImageByImagenameAndKikiSysId" parameterType="Image">
+        DELETE FROM imageQR where id=#{id}
+    </delete>
+
+    <update id="updateBikouByObject" parameterType="Image">
+        UPDATE imageQR
+        SET bikou=#{bikou},
+        updDate=#{updDate}
+        WHERE id=#{id}
+    </update>
+
+    <select id="findImagesByKikiSysId" parameterType="string" resultType="Image">
+        SELECT * FROM imageQR WHERE imagekikiSysId=#{imagekikiSysId} order by page,trkDate desc
+    </select>
+
+
+    <select id="findGPImagesByImage" parameterType="Image" resultType="Image">
+        SELECT * FROM imageQR WHERE imagekikiSysId=#{imagekikiSysId} and imagesyu=#{imagesyu} order by trkDate desc
+    </select>
+
+    <insert id="addImageByImage" parameterType="Image">
+        INSERT
+        INTO imageQR(imagekikiSysId,imagePartId,imagesyu,page, kaiteino, imagename, papersize, trkDate, updDate,bikou)
+        VALUES (#{imagekikiSysId},#{imagePartId}, #{imagesyu},#{page},#{kaiteino}, #{imagename}, #{papersize}, #{trkDate},#{updDate}, #{bikou})
+    </insert>
+
+</mapper>
